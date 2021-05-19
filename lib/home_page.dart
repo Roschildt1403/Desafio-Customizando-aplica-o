@@ -20,38 +20,51 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            for (int i = 0; i < notes.length; i++)
-              Card(
-                child: ListTile(
-                  onTap: () async {
-                    var response = await Navigator.pushNamed(
-                      context,
-                      "/create-note",
-                      arguments: notes[i],
-                    );
-                    if (response.toString().isEmpty) {
-                      notes.removeAt(i);
-                    } else {
-                      notes[i] = ("$response");
-                    }
+            for (int i = 0; i < notes.length; i++) card(i),
+            ElevatedButton(
+                onPressed: () async {
+                  final response =
+                      await Navigator.pushNamed(context, "/create-note");
+                  print(response);
 
-                    setState(() {});
-                  },
-                  title: Text(notes[i]),
-                ),
-              )
+                  notes.add("$response");
+                  setState(() {});
+                },
+                child: Icon(Icons.add))
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final response = await Navigator.pushNamed(context, "/create-note");
-          print(response);
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     final response = await Navigator.pushNamed(context, "/create-note");
+      //     print(response);
 
-          notes.add("$response");
+      //     notes.add("$response");
+      //     setState(() {});
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
+    );
+  }
+
+  Widget card(int i) {
+    return Card(
+      child: ListTile(
+        onTap: () async {
+          var response = await Navigator.pushNamed(
+            context,
+            "/create-note",
+            arguments: notes[i],
+          );
+          if (response.toString().isEmpty) {
+            notes.removeAt(i);
+          } else {
+            notes[i] = ("$response");
+          }
+
           setState(() {});
         },
-        child: Icon(Icons.add),
+        title: Text(notes[i]),
       ),
     );
   }

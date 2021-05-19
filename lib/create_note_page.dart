@@ -41,7 +41,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
             SizedBox(
               height: 32,
             ),
-            if (texto.isNotEmpty) saveButton(),
+            if (textController.text.isNotEmpty) saveButton(),
           ],
         ),
       ),
@@ -53,8 +53,6 @@ class _CreateNotePageState extends State<CreateNotePage> {
       decoration: InputDecoration(labelText: "Descrição"),
       controller: textController,
       onChanged: (x) {
-        texto = x;
-        // print(x);
         setState(() {});
       },
       maxLines: null,
@@ -69,7 +67,7 @@ class _CreateNotePageState extends State<CreateNotePage> {
           width: 300,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pop(context, texto);
+              Navigator.pop(context, textController.text);
             },
             child: Text("salvar"),
           ),
